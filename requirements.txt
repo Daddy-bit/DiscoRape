@@ -1,0 +1,6 @@
+discord.py
+mtranslate
+colorthief
+moviepy
+requests
+emoji
