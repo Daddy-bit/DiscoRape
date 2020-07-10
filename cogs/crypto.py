@@ -48,6 +48,25 @@ class crypto(commands.Cog):
         )
         await ctx.send(embed=em)
 
+    @commands.command(aliases=["usdtobtc"])
+    async def usdbtc(self, ctx, message):
+        """Converts USD to BTC """
+        await ctx.message.delete()
+        r = requests.get(
+        "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD"
+        )
+
+        r = r.json()
+        usd = r["USD"]
+        index = 1 / usd
+        amount = int(message)
+        converted = amount * index
+        em = discord.Embed(description=f"BTC = `{converted} BTC`")
+        em.set_author(
+            name="USD to Bitcoin",
+            icon_url="https://cdn.pixabay.com/photo/2013/12/08/12/12/bitcoin-225079_960_720.png",
+        )
+        await ctx.send(embed=em)
 
 ### Add cog lmao
 def setup(bot):
