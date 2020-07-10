@@ -50,7 +50,11 @@ class crypto(commands.Cog):
 
     @commands.command(aliases=["usdtobtc"])
     async def usdbtc(self, ctx, message):
-        """Converts USD to BTC """
+        """Converts USD to BTC
+
+        Parameters
+        • USD - Amount of USD you want in BTC (NOTE: NEEDS TO BE WHOLE NUMBER)
+        """
         await ctx.message.delete()
         r = requests.get(
         "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD"
