@@ -87,7 +87,7 @@ class Selfbot(commands.Bot):
         except Exception as e:
             print(e)
 
-    async def on_connect(self):
+    async def on_connect():
         print("connected")
 
     async def on_ready(self):

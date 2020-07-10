@@ -16,12 +16,13 @@ class crypto(commands.Cog):
         """Gets the current Bitcoin Price"""
         await ctx.message.delete()
         r = requests.get(
-            "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR"
+            "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR,GBP"
         )
         r = r.json()
         usd = r["USD"]
         eur = r["EUR"]
-        em = discord.Embed(description=f"USD: `{str(usd)}$`\nEUR: `{str(eur)}€`")
+        gbp = r["GBP"]
+        em = discord.Embed(description=f"USD: `{str(usd)}$`\n\nEUR: `{str(eur)}€`\n\nGBP: `{str(gbp)}£`")
         em.set_author(
             name="Bitcoin",
             icon_url="https://cdn.pixabay.com/photo/2013/12/08/12/12/bitcoin-225079_960_720.png",
@@ -34,12 +35,13 @@ class crypto(commands.Cog):
         """Gets the current Etherium price"""
         await ctx.message.delete()
         r = requests.get(
-            "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,EUR"
+            "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,EUR,GBP"
         )
         r = r.json()
         usd = r["USD"]
         eur = r["EUR"]
-        em = discord.Embed(description=f"USD: `{str(usd)}$`\nEUR: `{str(eur)}€`")
+        gbp = r["GBP"]
+        em = discord.Embed(description=f"USD: `{str(usd)}$`\nEUR: `{str(eur)}€`\n\nGBP: `{str(gbp)}£`")
         em.set_author(
             name="Ethereum",
             icon_url="https://cdn.discordapp.com/attachments/271256875205525504/374282740218200064/2000px-Ethereum_logo.png",
