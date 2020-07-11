@@ -1,8 +1,16 @@
 # DiscoRape
 
 DiscoRape is a selfbot for Discord written in python3.8
-The original repository I forked this from can be found here [made by EC-discord](https://https://github.com/EC-discord/self-bot)
+The original repository I forked this from can be found here [made by EC-discord](https://github.com/EC-discord/self-bot)
 
 ## :memo: Install
 
-python3 -m pip install -r requirements.txt
+`pip3 install -r requirements.txt`
+
+
+
+
+## Support
+Join my support discord
+
+<a href="https://discord.gg/MSwpbsx"><img src="https://discord.com/api/guilds/726859574799499285/widget.png?style=banner4" alt="" /></a>

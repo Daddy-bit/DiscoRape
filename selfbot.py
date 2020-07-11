@@ -35,7 +35,7 @@ class Selfbot(commands.Bot):
             "crypto",
             "misc",
             "mod",
-            #"memes",
+            "memes",
             "noble",
             "skid",
             "source",
@@ -92,7 +92,7 @@ class Selfbot(commands.Bot):
     def init(bot, token=None):
         """Starts the actual bot"""
         selfbot = bot()
-        safe_token = token or selfbot.token.strip('"')
+        safe_token = token or selfbot.token.strip('')
         try:
             selfbot.run(safe_token, bot=False, reconnect=True)
         except Exception as e:
