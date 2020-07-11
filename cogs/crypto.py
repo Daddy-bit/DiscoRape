@@ -48,7 +48,7 @@ class crypto(commands.Cog):
         )
         await ctx.send(embed=em)
 
-    @commands.command(aliases=["usdtobtc"])
+    @commands.command(aliases=["usdtobtc", "usd2btc"])
     async def usdbtc(self, ctx, message):
         """Converts USD to BTC
 
@@ -65,10 +65,34 @@ class crypto(commands.Cog):
         index = 1 / usd
         amount = int(message)
         converted = amount * index
-        em = discord.Embed(description=f"BTC = `{converted} BTC`")
+        em = discord.Embed(description=f"**{amount}$** = **{converted} BTC**")
         em.set_author(
             name="USD to Bitcoin",
             icon_url="https://cdn.pixabay.com/photo/2013/12/08/12/12/bitcoin-225079_960_720.png",
+        )
+        await ctx.send(embed=em)
+
+    @commands.command(aliases=["usdtoeth", "usd2eth"])
+    async def usdeth(self, ctx, message):
+        """Converts USD to ETH
+
+        Parameters
+        • USD - Amount of USD you want in ETH (NOTE: NEEDS TO BE WHOLE NUMBER)
+        """
+        await ctx.message.delete()
+        r = requests.get(
+        "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD"
+        )
+
+        r = r.json()
+        usd = r["USD"]
+        index = 1 / usd
+        amount = int(message)
+        converted = amount * index
+        em = discord.Embed(description=f"**{amount}$** = **{converted} ETH**")
+        em.set_author(
+            name="USD to ETH",
+            icon_url="https://cdn.discordapp.com/attachments/271256875205525504/374282740218200064/2000px-Ethereum_logo.png",
         )
         await ctx.send(embed=em)
 
