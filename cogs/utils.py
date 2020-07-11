@@ -11,6 +11,8 @@ import io
 import re
 import aiohttp
 import os
+import time
+
 
 
 class utility(commands.Cog):
@@ -322,7 +324,19 @@ class utility(commands.Cog):
                             value=desired_trace,
                             inline=False
                         )
-                await ctx.send(embed=embed)
+                        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def ping(self, ctx):
+        """Gives you your latency"""
+        start = time.perf_counter()
+        message = await ctx.send("Ping...")
+        end = time.perf_counter()
+        duration = (end - start) * 1000
+        await message.edit(content='Pong! :ping_pong:\nLatency is **{:.2f}ms**'.format(duration))
+        await ctx.message.delete()
+
+
 
 def setup(bot):
     bot.add_cog(utility(bot))
