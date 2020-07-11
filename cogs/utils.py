@@ -328,7 +328,7 @@ class utility(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx):
-        """Gives you your latency"""
+        """Gives you client latency"""
         start = time.perf_counter()
         message = await ctx.send("Ping...")
         end = time.perf_counter()

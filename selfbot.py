@@ -25,6 +25,7 @@ class Selfbot(commands.Bot):
             "crypto",
             "misc",
             "mod",
+            #"memes",
             "noble",
             "skid",
             "source",
