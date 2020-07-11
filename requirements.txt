@@ -4,3 +4,5 @@ colorthief
 moviepy
 requests
 emoji
+black
+pyfiglet
