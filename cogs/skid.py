@@ -13,7 +13,7 @@ import inspect
 import datetime
 from pyfiglet import figlet_format
 
-class skid(commands.Cog): 
+class skid(commands.Cog):
      def __init__(self, bot):
           self.bot = bot
           self._last_result = None
@@ -23,21 +23,34 @@ class skid(commands.Cog):
           for idx, char in enumerate(self.char_list):
               self.text_flip[char] = self.alt_char_list[idx]
               self.text_flip[self.alt_char_list[idx]] = char
-               
+
+#################################################
+# I fucked up this as well somehow unsure       #
+# of how to do it so am gonna save it for later #
+#################################################
+     #@commands.command()
+     #async def dmall(self, ctx, message):
+        #"""dms all members in the guild with your message"""
+        #members = ctx.guild.members
+    ###
+
      @commands.command()
      async def eml(self, ctx, no_of_lines: int = 4):
          """displays colorful lines in embeds
+
          Parameters
          • no_of_lines - how many lines to display, defaults to 4
          """
          for _ in range(no_of_lines):
               await ctx.invoke(self.bot.get_command("rc"), 200, 5, False)
-              
-     @commands.command(name="thetime")
-     async def time(self, ctx):
-         """Send bot's current time"""
-         await ctx.send(datetime.datetime.now().strftime(_("%d.%m.%Y %H:%M:%S %Z")))   
-     
+
+    # @commands.command(name="thetime")
+     #async def time(self, ctx):
+    #    """Send bot's current time"""
+    #     await ctx.send(datetime.datetime.now().strftime(_("%d.%m.%Y %H:%M:%S %Z")))
+###
+### This shit is broken idk y idc y just lemme be
+###
      @commands.command()
      async def textflip(self, ctx, *, message):
          result = " "
@@ -47,14 +60,14 @@ class skid(commands.Cog):
              else:
                  result += char
          await ctx.message.edit(content=result[::-1])
-    
+
      @commands.command()
      async def spam(self, ctx, text: str, spam_frequency: int, *spam_delay: int):
          await ctx.message.delete()
          for i in range(spam_frequency):
              await ctx.send(text)
              await asyncio.sleep(random.choice(spam_delay))
-     
+
      @commands.command(pass_context=True, hidden=True, name='eval')
      async def _eval(self, ctx, *, body: str):
          """Evaluates python code"""
@@ -119,7 +132,7 @@ class skid(commands.Cog):
              await out.add_reaction('✔')
          if err:
              await err.add_reaction('❌')
-            
+
      def cleanup_code(self, content):
          """Automatically removes code blocks from the code."""
          if content.startswith('```') and content.endswith('```'):
@@ -130,7 +143,7 @@ class skid(commands.Cog):
          if e.text is None:
              return f'```py\n{e.__class__.__name__}: {e}\n```'
          return f'```py\n{e.text}{"^":>{e.offset}}\n{e.__class__.__name__}: {e}```'
-     
+
      def getColor(self, colorHex):
         colorHex = str(colorHex)
         return discord.Colour(int(f'0x{colorHex[1:]}', 16))
@@ -138,7 +151,7 @@ class skid(commands.Cog):
      def randomcolor(self):
        values = [int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1)]
        color = discord.Color.from_rgb(*values)
-       return self.getColor(color)  
+       return self.getColor(color)
 
      @commands.command()
      async def rc(self, ctx, width = 200, height = 90, show_hexcode = True):
@@ -152,6 +165,6 @@ class skid(commands.Cog):
           em.title = f'Showing Color: {str(color)}'
         em.set_image(url='attachment://color.png')
         await ctx.send(file=discord.File(file, 'color.png'), embed=em)
-     
+
 def setup(bot):
    bot.add_cog(skid(bot))
