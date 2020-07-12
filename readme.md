@@ -1,5 +1,3 @@
-
-
 # DiscoRape
 
 DiscoRape is a selfbot for Discord written in python3.8
@@ -21,4 +19,4 @@ For support you can either join my support discord which you can find here
 
 <a href="https://discord.gg/MSwpbsx"><img src="https://discord.com/api/guilds/726859574799499285/widget.png?style=banner2" alt="" /></a>
 
-Or you can open an issue/pull requests on here 
+Or you can open an issue/pull requests on here
