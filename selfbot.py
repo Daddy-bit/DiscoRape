@@ -20,7 +20,6 @@ import os
 import re
 import traceback
 
-
 class Selfbot(commands.Bot):
     def __init__(self, **attrs):
         super().__init__(

