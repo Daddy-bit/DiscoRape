@@ -265,6 +265,11 @@ class utility(commands.Cog):
 
     @commands.command()
     async def reload(self, ctx, cog=None):
+        """Reloads one or all of the cogs
+
+        Paramaters
+        • cog - The name of the cog you want to reload e.g crypto
+        If not name is specified it'll reload all cogs"""
         if not cog:
             # No cog, means we reload all cogs
             async with ctx.typing():
