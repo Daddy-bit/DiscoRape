@@ -129,7 +129,7 @@ class anim(commands.Cog):
             "`IMMINENT SHUT-DOWN IN 0.2 SEC!`",
             "`SYSTEM OVERLOAD !! WARNING !!`",
             "`IMMINENT SHUT-DOWN IN 0.01 SEC!`",
-            "`SHUT-DOWN EXIT ERROR ¯\\(｡･益･)/¯",
+            "`SHUT-DOWN EXIT ERROR ¯\\(｡･益･)/¯`",
             "`CTRL + R FOR MANUAL OVERRIDE..`",
         )
         for i in list:
