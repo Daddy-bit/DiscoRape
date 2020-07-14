@@ -35,6 +35,7 @@ class Selfbot(commands.Bot):
             "misc",
             "mod",
             "memes",
+            "malicious",
             "noble",
             "skid",
             "source",
