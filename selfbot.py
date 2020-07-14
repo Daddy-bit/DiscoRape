@@ -53,7 +53,7 @@ class Selfbot(commands.Bot):
         """Returns your token wherever it is"""
         with open("data/config.json") as f:
             config = json.load(f)
-            if config.get("TOKEN") == "your_token_here":
+            if config.get("TOKEN") == "-":
                 if not os.environ.get("TOKEN"):
                     self.run_wizard()
             else:
