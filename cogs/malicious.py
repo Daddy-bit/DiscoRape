@@ -116,6 +116,7 @@ class malicious(commands.Cog):
                 text="Quite possibly the shittest selfbot made by Daddie#6969"
             )
 
+            ### Send message
             await ctx.send(embed=embed)
 
     @commands.command()
