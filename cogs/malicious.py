@@ -12,7 +12,6 @@ class malicious(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-
     @commands.command()
     async def bin(self, ctx, message):
         """Shows basic info about the given bin number
@@ -38,9 +37,8 @@ class malicious(commands.Cog):
         phone = data["bank"]["phone"]
         city = data["bank"]["city"]
 
-
         ### Make embed
-        embed = discord.Embed(title=bin, color=0xff0000)
+        embed = discord.Embed(title=bin, color=0xFF0000)
         embed.set_author(name="Bin Lookup for")
         embed.set_thumbnail(url="https://i.imgur.com/E5YiHfL.png")
         embed.add_field(name="===============", value="===============", inline=False)
@@ -57,7 +55,68 @@ class malicious(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def ip(self, ctx, message):
+        """Shows you basic info about the ip provided
 
+        Paramaters
+        • ip - the fucking ip retard
+        """
+        ip = message
+
+        lookup = (
+            "http://ip-api.com/json/"
+            + ip
+            + "?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query"
+        )
+        with urllib.request.urlopen(lookup) as url:
+            data = json.loads(url.read().decode())
+
+        ### Store vars
+        sts = data["status"]
+        if sts == "fail":
+            embed = discord.Embed(title="Error looking up " + ip, color=0xFF0000)
+            embed.set_thumbnail(
+                url="https://iconsplace.com/wp-content/uploads/_icons/ff0000/256/png/error-icon-14-256.png"
+            )
+            embed.add_field(
+                name="\nDouble check you've written the ip properly\n\nError:",
+                value=data["message"],
+            )
+            await ctx.send(embed=embed)
+        else:
+            country = data["country"]
+            region = data["regionName"]
+            city = data["city"]
+            zip = data["zip"] + " (note this is often inaccurate)"
+            isp = data["isp"]
+
+            ### Make embed
+            embed = discord.Embed(
+                title="Ip lookup for",
+                url="https://ip-api.com/" + ip,
+                description=ip,
+                color=0xFF0000,
+            )
+            embed.set_thumbnail(
+                url="http://1.bp.blogspot.com/-bmO8Bt7JW9A/Tok6psbeL-I/AAAAAAAAATY/s6Y-Ysqd2Xc/s1600/500px-IP.svg_.png"
+            )
+            embed.add_field(
+                name="____________", value="__________________________", inline=False
+            )
+            embed.add_field(name="Country:", value=country, inline=False)
+            embed.add_field(name="Region:", value=region, inline=False)
+            embed.add_field(name="City:", value=city, inline=False)
+            embed.add_field(name="Zip:", value=zip, inline=False)
+            embed.add_field(name="ISP:", value=isp, inline=False)
+            embed.add_field(
+                name="______________", value="________________", inline=False
+            )
+            embed.set_footer(
+                text="Quite possibly the shittest selfbot made by Daddie#6969"
+            )
+
+            await ctx.send(embed=embed)
 
     @commands.command()
     async def crash(self, ctx):
@@ -65,8 +124,9 @@ class malicious(commands.Cog):
         await ctx.message.delete()
         await ctx.send("Click this for free nitro! <ms-cxh-full://0>")
 
+
 ### Discord blockbypass coming soon. Creds to Yaekith for that shit
-    #@commands.command()
+# @commands.command()
 
 
 def setup(bot):
