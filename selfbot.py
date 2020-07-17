@@ -6,8 +6,6 @@
 ###############################################
 
 
-
-
 import discord
 from discord import Color
 from discord.ext import commands
@@ -19,6 +17,8 @@ import json
 import os
 import re
 import traceback
+from colorama import Fore, init
+
 
 class Selfbot(commands.Bot):
     def __init__(self, **attrs):
@@ -44,9 +44,12 @@ class Selfbot(commands.Bot):
         ):
             try:
                 self.load_extension(f"cogs.{extension}")
-                print(f"Loaded extension: {extension}")
+                print(f"{Fore.GREEN}[-] {Fore.RESET}Loaded extension: {extension}")
             except:
-                print(f"LoadError: {extension}\n" f"{traceback.print_exc()}")
+                print(
+                    f"{Fore.RED}[-] {Fore.RESET}LoadError: {extension}\n"
+                    f"{traceback.print_exc()}"
+                )
 
     @property
     def token(self):
@@ -77,10 +80,7 @@ class Selfbot(commands.Bot):
         token = input("Enter your token:\n> ")
         print("------------------------------------------")
         prefix = input("Enter a prefix for your selfbot:\n> ")
-        data = {
-            "TOKEN": token,
-            "PREFIX": prefix
-        }
+        data = {"TOKEN": token, "PREFIX": prefix}
         with open("data/config.json", "w") as f:
             f.write(json.dumps(data, indent=4))
         print("------------------------------------------")
@@ -91,8 +91,25 @@ class Selfbot(commands.Bot):
     @classmethod
     def init(bot, token=None):
         """Starts the actual bot"""
+        print(
+            f"""{Fore.GREEN}
+  $$$$$$$  /$$                               /$$$$$$$
+| $$__  $$|__/                              | $$__  $$
+| $$  \ $$ /$$  /$$$$$$$  /$$$$$$$  /$$$$$$ | $$  \ $$  /$$$$$$   /$$$$$$   /$$$$$$
+| $$  | $$| $$ /$$_____/ /$$_____/ /$$__  $$| $$$$$$$/ |____  $$ /$$__  $$ /$$__  $$
+| $$  | $$| $$|  $$$$$$ | $$      | $$  \ $$| $$__  $$  /$$$$$$$| $$  \ $$| $$$$$$$$
+| $$  | $$| $$ \____  $$| $$      | $$  | $$| $$  \ $$ /$$__  $$| $$  | $$| $$_____/
+| $$$$$$$/| $$ /$$$$$$$/|  $$$$$$$|  $$$$$$/| $$  | $$|  $$$$$$$| $$$$$$$/|  $$$$$$$
+|_______/ |__/|_______/  \_______/ \______/ |__/  |__/ \_______/| $$____/  \_______/
+                                                                | $$
+                                                                | $$
+                                                                |__/
+    """
+        )
+        print(f"{Fore.GREEN}[-] {Fore.RESET}Made with <3 by Daddie")
+
         selfbot = bot()
-        safe_token = token or selfbot.token.strip('')
+        safe_token = token or selfbot.token.strip("")
         try:
             selfbot.run(safe_token, bot=False, reconnect=True)
         except Exception as e:

@@ -2,6 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 import requests
+from colorama import Fore, init
 
 
 class crypto(commands.Cog):
@@ -21,7 +22,9 @@ class crypto(commands.Cog):
         usd = r["USD"]
         eur = r["EUR"]
         gbp = r["GBP"]
-        em = discord.Embed(description=f"USD: `{str(usd)}$`\n\nEUR: `{str(eur)}€`\n\nGBP: `{str(gbp)}£`")
+        em = discord.Embed(
+            description=f"USD: `{str(usd)}$`\n\nEUR: `{str(eur)}€`\n\nGBP: `{str(gbp)}£`"
+        )
         em.set_author(
             name="Bitcoin",
             icon_url="https://cdn.pixabay.com/photo/2013/12/08/12/12/bitcoin-225079_960_720.png",
@@ -40,7 +43,9 @@ class crypto(commands.Cog):
         usd = r["USD"]
         eur = r["EUR"]
         gbp = r["GBP"]
-        em = discord.Embed(description=f"USD: `{str(usd)}$`\nEUR: `{str(eur)}€`\n\nGBP: `{str(gbp)}£`")
+        em = discord.Embed(
+            description=f"USD: `{str(usd)}$`\nEUR: `{str(eur)}€`\n\nGBP: `{str(gbp)}£`"
+        )
         em.set_author(
             name="Ethereum",
             icon_url="https://cdn.discordapp.com/attachments/271256875205525504/374282740218200064/2000px-Ethereum_logo.png",
@@ -56,7 +61,7 @@ class crypto(commands.Cog):
         """
         await ctx.message.delete()
         r = requests.get(
-        "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD"
+            "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD"
         )
 
         r = r.json()
@@ -80,7 +85,7 @@ class crypto(commands.Cog):
         """
         await ctx.message.delete()
         r = requests.get(
-        "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD"
+            "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD"
         )
 
         r = r.json()
@@ -94,6 +99,7 @@ class crypto(commands.Cog):
             icon_url="https://cdn.discordapp.com/attachments/271256875205525504/374282740218200064/2000px-Ethereum_logo.png",
         )
         await ctx.send(embed=em)
+
 
 ### Add cog lmao
 def setup(bot):
