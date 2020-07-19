@@ -6,3 +6,4 @@ requests
 emoji
 black
 pyfiglet
+colorama

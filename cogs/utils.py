@@ -14,7 +14,6 @@ import os
 import time
 
 
-
 class utility(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -276,7 +275,7 @@ class utility(commands.Cog):
                 embed = discord.Embed(
                     title="Reloading all cogs!",
                     color=0x808080,
-                    timestamp=ctx.message.created_at
+                    timestamp=ctx.message.created_at,
                 )
                 for ext in os.listdir("./cogs/"):
                     if ext.endswith(".py") and not ext.startswith("_"):
@@ -284,15 +283,11 @@ class utility(commands.Cog):
                             self.bot.unload_extension(f"cogs.{ext[:-3]}")
                             self.bot.load_extension(f"cogs.{ext[:-3]}")
                             embed.add_field(
-                                name=f"Reloaded: `{ext}`",
-                                value='\uFEFF',
-                                inline=False
+                                name=f"Reloaded: `{ext}`", value="\uFEFF", inline=False
                             )
                         except Exception as e:
                             embed.add_field(
-                                name=f"Failed to reload: `{ext}`",
-                                value=e,
-                                inline=False
+                                name=f"Failed to reload: `{ext}`", value=e, inline=False
                             )
                         await asyncio.sleep(0.5)
                 await ctx.send(embed=embed)
@@ -302,7 +297,7 @@ class utility(commands.Cog):
                 embed = discord.Embed(
                     title="Reloading all cogs!",
                     color=0x808080,
-                    timestamp=ctx.message.created_at
+                    timestamp=ctx.message.created_at,
                 )
                 ext = f"{cog.lower()}.py"
                 if not os.path.exists(f"./cogs/{ext}"):
@@ -310,7 +305,7 @@ class utility(commands.Cog):
                     embed.add_field(
                         name=f"Failed to reload: `{ext}`",
                         value="This cog does not exist.",
-                        inline=False
+                        inline=False,
                     )
 
                 elif ext.endswith(".py") and not ext.startswith("_"):
@@ -318,16 +313,14 @@ class utility(commands.Cog):
                         self.bot.unload_extension(f"cogs.{ext[:-3]}")
                         self.bot.load_extension(f"cogs.{ext[:-3]}")
                         embed.add_field(
-                            name=f"Reloaded: `{ext}`",
-                            value='\uFEFF',
-                            inline=False
+                            name=f"Reloaded: `{ext}`", value="\uFEFF", inline=False
                         )
                     except Exception:
                         desired_trace = traceback.format_exc()
                         embed.add_field(
                             name=f"Failed to reload: `{ext}`",
                             value=desired_trace,
-                            inline=False
+                            inline=False,
                         )
                         await ctx.send(embed=embed)
 
@@ -338,9 +331,15 @@ class utility(commands.Cog):
         message = await ctx.send("Ping...")
         end = time.perf_counter()
         duration = (end - start) * 1000
-        await message.edit(content='Pong! :ping_pong:\nLatency is **{:.2f}ms**'.format(duration))
+        await message.edit(
+            content="Pong! :ping_pong:\nLatency is **{:.2f}ms**".format(duration)
+        )
         await ctx.message.delete()
 
+    @commands.command()
+    async def whois(self, ctx, user: discord.Member = None):
+        """Grabs basic info about the mentioned user"""
+        user = member or ctx.message.author
 
 
 def setup(bot):
