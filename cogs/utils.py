@@ -336,11 +336,6 @@ class utility(commands.Cog):
         )
         await ctx.message.delete()
 
-    @commands.command()
-    async def whois(self, ctx, user: discord.Member = None):
-        """Grabs basic info about the mentioned user"""
-        user = member or ctx.message.author
-
 
 def setup(bot):
     bot.add_cog(utility(bot))
