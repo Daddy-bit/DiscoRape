@@ -15,7 +15,10 @@ from colorama import Fore, init
 class Selfbot(commands.Bot):
     def __init__(self, **attrs):
         super().__init__(
-            command_prefix=self.get_pre, self_bot=True, help_command=helpformatter()
+            command_prefix=self.get_pre,
+            self_bot=True,
+            help_command=helpformatter(),
+            guild_subscriptions=False,
         )
         self.load_extensions()
         self.snipes = {}
@@ -130,9 +133,7 @@ class Selfbot(commands.Bot):
     discord.Color.black = black
 
     async def on_message_delete(self, message):
-        if message.guild is None:
-            self.snipes[message.author.id] = message.content
-        else:
+        if len(message.content) != 1:
             self.snipes[message.channel.id] = message.content
 
     async def on_message_edit(self, before, after):
