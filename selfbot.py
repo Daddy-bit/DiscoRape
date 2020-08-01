@@ -10,6 +10,7 @@ import os
 import re
 import traceback
 from colorama import Fore, init
+import sys
 
 
 class Selfbot(commands.Bot):
