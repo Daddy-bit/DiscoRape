@@ -7,3 +7,4 @@ emoji
 black
 pyfiglet
 colorama
+BeautifulSoup4

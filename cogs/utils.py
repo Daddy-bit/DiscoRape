@@ -12,6 +12,9 @@ import re
 import aiohttp
 import os
 import time
+from bs4 import BeautifulSoup
+import urllib.request
+# NOTE: Need this shit dunno if it's actually will work
 
 
 class utility(commands.Cog):
@@ -335,6 +338,26 @@ class utility(commands.Cog):
             content="Pong! :ping_pong:\nLatency is **{:.2f}ms**".format(duration)
         )
         await ctx.message.delete()
+
+    @commands.command()
+    async def urban(self, ctx, message):
+        """Looks up shit on urban dictionary
+
+        Note: Only works with single words not sentences
+        """
+        term = message
+        url = "https://www.urbandictionary.com/define.php?term="
+        url+= ("+"+term)
+        try:
+            html = urllib.request.urlopen(url)
+            soup = BeautifulSoup(html, 'html.parser')
+            definition = soup.find(class_='meaning').get_text()
+            await ctx.send(f"`Defenition:\n      {definition}`")
+        except:
+            msg = "Phrase doesn't exist in the dictionary surprisingly."
+            await ctx.send(msg)
+
+
 
 
 def setup(bot):
