@@ -17,7 +17,7 @@ class misc(commands.Cog):
 
     @commands.command()
     async def snipe(self, ctx):
-        await ctx.send("> "+self.bot.snipes[ctx.message.channel.id])
+        await ctx.send("> " + self.bot.snipes[ctx.message.channel.id])
 
     @commands.command(aliases=["tt"])
     async def triggertyping(

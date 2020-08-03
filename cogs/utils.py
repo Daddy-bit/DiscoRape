@@ -14,7 +14,7 @@ import os
 import time
 from bs4 import BeautifulSoup
 import urllib.request
-# NOTE: Need this shit dunno if it's actually will work
+import sys
 
 
 class utility(commands.Cog):
@@ -347,17 +347,21 @@ class utility(commands.Cog):
         """
         term = message
         url = "https://www.urbandictionary.com/define.php?term="
-        url+= ("+"+term)
+        url += "+" + term
         try:
             html = urllib.request.urlopen(url)
-            soup = BeautifulSoup(html, 'html.parser')
-            definition = soup.find(class_='meaning').get_text()
+            soup = BeautifulSoup(html, "html.parser")
+            definition = soup.find(class_="meaning").get_text()
             await ctx.send(f"`Defenition:\n      {definition}`")
         except:
             msg = "Phrase doesn't exist in the dictionary surprisingly."
             await ctx.send(msg)
 
-
+    @commands.command()
+    async def reboot(self, ctx):
+        """Reboots the selfbot"""
+        await ctx.send("Rebooting...")
+        os.execv(sys.executable, ["python"] + sys.argv)
 
 
 def setup(bot):
