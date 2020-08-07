@@ -1,6 +1,7 @@
 import discord
 import asyncio
 from discord.ext import commands
+import random
 
 
 class anim(commands.Cog):
@@ -135,6 +136,27 @@ class anim(commands.Cog):
         for i in list:
             await asyncio.sleep(1.5)
             await ctx.message.edit(content=i)
+
+    @commands.command()
+    # Credits to Daddy Ræd#6358 for cow design lol
+    async def cow(self, ctx):
+        cnt = """```
+ __________
+ |        |
+ |  Moo   |
+ |        |
+ ¯¯¯¯¯¯¯¯¯¯
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/
+                ||----w |
+                ||     ||
+```"""
+
+        em = discord.Embed(color=random.randint(0, 0xFFFFFF))
+        em.description = cnt
+        await ctx.send(embed=em)
+        await ctx.message.delete()
 
 
 def setup(bot):
