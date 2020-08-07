@@ -1,6 +1,7 @@
 import discord
 import asyncio
 from discord.ext import commands
+import random
 
 
 class textemotes(commands.Cog):
@@ -34,6 +35,27 @@ class textemotes(commands.Cog):
     async def lpew(self, ctx):
         """pew pew ----------<(' - '   )"""
         await ctx.message.edit(content="pew pew ----------<(' - '   )")
+
+    @commands.command()
+    # Credits to Daddy Ræd#6358 for cow design lol
+    async def cow(self, ctx):
+        cnt = """```
+ __________
+ |        |
+ |  Moo   |
+ |        |
+ ¯¯¯¯¯¯¯¯¯¯
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/
+                ||----w |
+                ||     ||
+```"""
+
+        em = discord.Embed(color=random.randint(0, 0xFFFFFF))
+        em.description = cnt
+        await ctx.send(embed=em)
+        await ctx.message.delete()
 
 
 def setup(bot):
