@@ -17,6 +17,7 @@ class misc(commands.Cog):
 
     @commands.command()
     async def snipe(self, ctx):
+        """Shows you the most recently deleted message"""
         await ctx.send("> " + self.bot.snipes[ctx.message.channel.id])
 
     @commands.command(aliases=["tt"])
