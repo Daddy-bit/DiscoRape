@@ -11,6 +11,7 @@ import re
 import traceback
 from colorama import Fore, init
 import sys
+import requests
 
 
 class Selfbot(commands.Bot):
@@ -141,6 +142,21 @@ class Selfbot(commands.Bot):
         await self.process_commands(after)
 
     async def on_message(self, message):
+        if 'https://discord.gift/' in message.content:
+            token = self.token.strip("")
+            print(Fore.YELLOW+"=> Found new Nitro Gift. Trying to claim it")
+            code = message.content.split('https://discord.gift')[1].split(' ')[0]
+            headers = {'Authorization': token, 'Content-Type': 'application/json', 'Accept': 'application/json'}
+            json = {
+            'channel_id': None,
+            'payment_source_id': None
+            }
+            r = requests.post('https://discordapp.com/api/v6/entitlements/gift-codes/'+code+'/redeem', verify=False,headers=headers, json=json)
+            if r.status_code == 200:
+                print(Fore.GREEN + "=> Successfully claimed Nitro with Code:" +code)
+            else:
+                print(Fore.RED + "=> Code already claimed or not valid")
+
         r = re.compile(r">(#[0-9a-fA-F]{6}) (.*)")
         r = r.match(message.content)
         if r and (self.user == message.author):
