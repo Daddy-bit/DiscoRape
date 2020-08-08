@@ -12,6 +12,12 @@ import traceback
 from colorama import Fore, init
 import sys
 import requests
+import datetime
+
+with open('./data/config.json') as f:
+    config = json.load(f)
+
+SNIPER = config.get('SNIPER')
 
 
 class Selfbot(commands.Bot):
@@ -104,6 +110,7 @@ class Selfbot(commands.Bot):
     """
         )
         print(f"{Fore.GREEN}[-] {Fore.RESET}Made with <3 by Daddie")
+        print(f"{Fore.GREEN}[-] Nitro Sniper | {Fore.CYAN}{SNIPER}")
 
         selfbot = bot()
         safe_token = token or selfbot.token.strip("")
@@ -142,20 +149,53 @@ class Selfbot(commands.Bot):
         await self.process_commands(after)
 
     async def on_message(self, message):
-        if 'https://discord.gift/' in message.content:
-            token = self.token.strip("")
-            print(Fore.YELLOW+"=> Found new Nitro Gift. Trying to claim it")
-            code = message.content.split('https://discord.gift')[1].split(' ')[0]
-            headers = {'Authorization': token, 'Content-Type': 'application/json', 'Accept': 'application/json'}
-            json = {
-            'channel_id': None,
-            'payment_source_id': None
-            }
-            r = requests.post('https://discordapp.com/api/v6/entitlements/gift-codes/'+code+'/redeem', verify=False,headers=headers, json=json)
-            if r.status_code == 200:
-                print(Fore.GREEN + "=> Successfully claimed Nitro with Code:" +code)
-            else:
-                print(Fore.RED + "=> Code already claimed or not valid")
+        ## Handler if nitro is yoinked lol
+        def NitroData(elapsed, code):
+            print(
+            f"{Fore.WHITE} - CHANNEL: {Fore.YELLOW}[{message.channel}]"
+            f"\n{Fore.WHITE} - SERVER: {Fore.YELLOW}[{message.guild}]"
+            f"\n{Fore.WHITE} - AUTHOR: {Fore.YELLOW}[{message.author}]"
+            f"\n{Fore.WHITE} - ELAPSED: {Fore.YELLOW}[{elapsed}]"
+            f"\n{Fore.WHITE} - CODE: {Fore.YELLOW}{code}"
+            +Fore.RESET)
+
+
+        # I stole this code from the alucard selfbot <3
+        # https://github.com/Alucard-Selfbot/Alucard-Selfbot-src/blob/master/Main.py
+
+        time = datetime.datetime.now().strftime("%H:%M %p")
+        if 'discord.gift/' in message.content:
+            if SNIPER == "True":
+                start = datetime.datetime.now()
+                code = re.search("discord.gift/(.*)", message.content).group(1)
+                token = config.get('TOKEN')
+
+                headers = {'Authorization': token}
+
+                r = requests.post(
+                    f'https://discordapp.com/api/v7/entitlements/gift-codes/{code}/redeem',
+                    headers=headers,
+                    ).text
+
+                elapsed = datetime.datetime.now() - start
+                elapsed = f'{elapsed.seconds}.{elapsed.microseconds}'
+
+                if 'This gift has been redeemed already.' in r:
+                    print(""
+                    f"\n{Fore.CYAN}[{time} - Nitro Already Redeemed]"+Fore.RESET)
+                    NitroData(elapsed, code)
+
+                elif 'subscription_plan' in r:
+                    print(""
+                    f"\n{Fore.CYAN}[{time} - Nitro Success]"+Fore.RESET)
+                    NitroData(elapsed, code)
+
+                elif 'Unknown Gift Code' in r:
+                    print(""
+                    f"\n{Fore.CYAN}[{time} - Nitro Unknown Gift Code]"+Fore.RESET)
+                    NitroData(elapsed, code)
+
+
 
         r = re.compile(r">(#[0-9a-fA-F]{6}) (.*)")
         r = r.match(message.content)
