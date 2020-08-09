@@ -343,7 +343,9 @@ class utility(commands.Cog):
     async def urban(self, ctx, message):
         """Looks up shit on urban dictionary
 
-        Note: Only works with single words not sentences
+        Note: ~~Only works with single words not sentences~~
+        This is now fixed but you have to use "multi%20word%20search"
+        instead of just multi word senctence i know a little gay but it works
         """
         term = message
         url = "https://www.urbandictionary.com/define.php?term="
@@ -352,7 +354,22 @@ class utility(commands.Cog):
             html = urllib.request.urlopen(url)
             soup = BeautifulSoup(html, "html.parser")
             definition = soup.find(class_="meaning").get_text()
-            await ctx.send(f"`Defenition:\n      {definition}`")
+            embed = discord.Embed(
+                title=":mag:" + term, description=definition, color=0x0062F4
+            )
+            embed.set_footer(
+                text="Urban Dictionary API for Discord by Daddie#1337",
+                icon_url="https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-0/p370x247/67117447_10156819767173172_7554494861143965696_n.png?_nc_cat=107&_nc_sid=85a577&_nc_ohc=dKHQazPgSHkAX93fdD_&_nc_ht=scontent-arn2-1.xx&oh=69e04cad9131d20053d19a993db34492&oe=5F56F619",
+            )
+            embed.set_thumbnail(
+                url="https://s3.amazonaws.com/pushbullet-uploads/ujxPklLhvyK-RGDsDKNxGPDh29VWVd5iJOh8hkiBTRyC/urban_dictionary.jpg?w=188&h=188&fit=crop"
+            )
+            embed.set_author(
+                name="Daddie0",
+                icon_url="https://avatars1.githubusercontent.com/u/33762262?s=460&u=a186009998e3232de0ce39a746aca15d74cae246",
+            )
+            await ctx.send(embed=embed)
+
         except:
             msg = "Phrase doesn't exist in the dictionary surprisingly."
             await ctx.send(msg)
