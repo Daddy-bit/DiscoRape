@@ -14,10 +14,10 @@ import sys
 import requests
 import datetime
 
-with open('./data/config.json') as f:
+with open("./data/config.json") as f:
     config = json.load(f)
 
-SNIPER = config.get('SNIPER')
+SNIPER = config.get("SNIPER")
 
 
 class Selfbot(commands.Bot):
@@ -83,7 +83,9 @@ class Selfbot(commands.Bot):
         token = input("Enter your token:\n> ")
         print("------------------------------------------")
         prefix = input("Enter a prefix for your selfbot:\n> ")
-        data = {"TOKEN": token, "PREFIX": prefix}
+        print("------------------------------------------")
+        sniper = input("Do you want to snipe discord nitro codes? [True, False]\n> ")
+        data = {"TOKEN": token, "PREFIX": prefix, "SNIPER": sniper}
         with open("data/config.json", "w") as f:
             f.write(json.dumps(data, indent=4))
         print("------------------------------------------")
@@ -152,50 +154,50 @@ class Selfbot(commands.Bot):
         ## Handler if nitro is yoinked lol
         def NitroData(elapsed, code):
             print(
-            f"{Fore.WHITE} - CHANNEL: {Fore.YELLOW}[{message.channel}]"
-            f"\n{Fore.WHITE} - SERVER: {Fore.YELLOW}[{message.guild}]"
-            f"\n{Fore.WHITE} - AUTHOR: {Fore.YELLOW}[{message.author}]"
-            f"\n{Fore.WHITE} - ELAPSED: {Fore.YELLOW}[{elapsed}]"
-            f"\n{Fore.WHITE} - CODE: {Fore.YELLOW}{code}"
-            +Fore.RESET)
-
+                f"{Fore.WHITE} - CHANNEL: {Fore.YELLOW}[{message.channel}]"
+                f"\n{Fore.WHITE} - SERVER: {Fore.YELLOW}[{message.guild}]"
+                f"\n{Fore.WHITE} - AUTHOR: {Fore.YELLOW}[{message.author}]"
+                f"\n{Fore.WHITE} - ELAPSED: {Fore.YELLOW}[{elapsed}]"
+                f"\n{Fore.WHITE} - CODE: {Fore.YELLOW}{code}" + Fore.RESET
+            )
 
         # I stole this code from the alucard selfbot <3
         # https://github.com/Alucard-Selfbot/Alucard-Selfbot-src/blob/master/Main.py
 
         time = datetime.datetime.now().strftime("%H:%M %p")
-        if 'discord.gift/' in message.content:
+        if "discord.gift/" in message.content:
             if SNIPER == "True":
                 start = datetime.datetime.now()
                 code = re.search("discord.gift/(.*)", message.content).group(1)
-                token = config.get('TOKEN')
+                token = config.get("TOKEN")
 
-                headers = {'Authorization': token}
+                headers = {"Authorization": token}
 
                 r = requests.post(
-                    f'https://discordapp.com/api/v7/entitlements/gift-codes/{code}/redeem',
+                    f"https://discordapp.com/api/v7/entitlements/gift-codes/{code}/redeem",
                     headers=headers,
-                    ).text
+                ).text
 
                 elapsed = datetime.datetime.now() - start
-                elapsed = f'{elapsed.seconds}.{elapsed.microseconds}'
+                elapsed = f"{elapsed.seconds}.{elapsed.microseconds}"
 
-                if 'This gift has been redeemed already.' in r:
-                    print(""
-                    f"\n{Fore.CYAN}[{time} - Nitro Already Redeemed]"+Fore.RESET)
+                if "This gift has been redeemed already." in r:
+                    print(
+                        ""
+                        f"\n{Fore.CYAN}[{time} - Nitro Already Redeemed]" + Fore.RESET
+                    )
                     NitroData(elapsed, code)
 
-                elif 'subscription_plan' in r:
-                    print(""
-                    f"\n{Fore.CYAN}[{time} - Nitro Success]"+Fore.RESET)
+                elif "subscription_plan" in r:
+                    print("" f"\n{Fore.CYAN}[{time} - Nitro Success]" + Fore.RESET)
                     NitroData(elapsed, code)
 
-                elif 'Unknown Gift Code' in r:
-                    print(""
-                    f"\n{Fore.CYAN}[{time} - Nitro Unknown Gift Code]"+Fore.RESET)
+                elif "Unknown Gift Code" in r:
+                    print(
+                        ""
+                        f"\n{Fore.CYAN}[{time} - Nitro Unknown Gift Code]" + Fore.RESET
+                    )
                     NitroData(elapsed, code)
-
-
 
         r = re.compile(r">(#[0-9a-fA-F]{6}) (.*)")
         r = r.match(message.content)
