@@ -169,6 +169,15 @@ class Selfbot(commands.Bot):
             if SNIPER == "True":
                 start = datetime.datetime.now()
                 code = re.search("discord.gift/(.*)", message.content).group(1)
+
+                # Anti spam/Fake Codes lol
+                if len(code) != 16:
+                    elapsed = datetime.datetime.now() - start
+                    elapsed = f"{elapsed.seconds}.{elapsed.microseconds}"
+                    print(""f"\n{Fore.RED}[{time} - Fake Nitro! Skipping...]{Fore.RESET}")
+                    NitroData(elapsed, code)
+                    return
+
                 token = config.get("TOKEN")
 
                 headers = {"Authorization": token}
