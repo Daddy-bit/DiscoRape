@@ -19,7 +19,7 @@ with open("./data/config.json") as f:
 
 SNIPER = config.get("SNIPER")
 
-__version__ = "3.1"
+__version__ = "3.2.1"
 __author__ = "Daddie0 || https://daddie.xyz"
 
 
@@ -42,6 +42,7 @@ class Selfbot(commands.Bot):
             "mod",
             "memes",
             "malicious",
+            "nukes",
             "noble",
             "skid",
             "source",
