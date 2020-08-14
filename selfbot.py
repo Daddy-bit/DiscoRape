@@ -19,6 +19,9 @@ with open("./data/config.json") as f:
 
 SNIPER = config.get("SNIPER")
 
+__version__ = "3.1"
+__author__ = "Daddie0 || https://daddie.xyz"
+
 
 class Selfbot(commands.Bot):
     def __init__(self, **attrs):
@@ -109,6 +112,9 @@ class Selfbot(commands.Bot):
                                                                 | $$
                                                                 | $$
                                                                 |__/
+
+                                                                Version > {Fore.RESET}{__version__}
+                                                                {Fore.GREEN}Made by > {Fore.RESET}{__author__}
     """
         )
         print(f"{Fore.GREEN}[-] {Fore.RESET}Made with <3 by Daddie")
@@ -174,7 +180,9 @@ class Selfbot(commands.Bot):
                 if len(code) != 16:
                     elapsed = datetime.datetime.now() - start
                     elapsed = f"{elapsed.seconds}.{elapsed.microseconds}"
-                    print(""f"\n{Fore.RED}[{time} - Fake Nitro! Skipping...]{Fore.RESET}")
+                    print(
+                        "" f"\n{Fore.RED}[{time} - Fake Nitro! Skipping...]{Fore.RESET}"
+                    )
                     NitroData(elapsed, code)
                     return
 
